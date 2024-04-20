@@ -10,7 +10,7 @@ import SwiftUI
 struct MainTabView: View {
     var body: some View {
         TabView {
-            Text("Swiping View")
+           CardStackView()
                 .tabItem { Image(systemName: "flame") }
                 .tag(0)
             
@@ -18,17 +18,22 @@ struct MainTabView: View {
                 .tabItem { Image(systemName: "magnifyingglass") }
                 .tag(1)
             
-            Text("Inbox View")
-                .tabItem { Image(systemName: "bubble") }
+           InboxView()
+                .tabItem { 
+                    Image(systemName: "bubble")
+                        .renderingMode(.template)
+                }
                 .tag(2)
             
-            Text("Profile View")
+            CurrentUserProfileView(user: MockData.users[1])
                 .tabItem { Image(systemName: "person") }
                 .tag(3)
         }
+        .tint(.primary)
     }
 }
 
 #Preview {
     MainTabView()
+        .environmentObject(MatchManager(service: MockMatchService()))
 }
